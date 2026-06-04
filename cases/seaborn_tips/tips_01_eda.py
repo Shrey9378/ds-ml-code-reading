@@ -13,13 +13,14 @@ Load the tips dataset and engineer the target variable: tip_pct = tip / total_bi
 Print a quick sanity check (shape, dtypes, missing values) and flag the one known
 duplicate row before any analysis.
 """
+
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
 PLOT_DIR = Path(__file__).parent / "plots"
-PLOT_DIR.mkdir(exist_ok=True)
+PLOT_DIR.mkdir(parents=True, exist_ok=True)
 
 tips = sns.load_dataset("tips")
 tips["tip_pct"] = tips["tip"] / tips["total_bill"] * 100
