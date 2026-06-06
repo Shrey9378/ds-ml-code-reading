@@ -19,7 +19,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-PLOT_DIR = Path(__file__).parent / "plots"
+PLOT_DIR = Path.cwd() / "plots"
+PLOT_DIR.mkdir(parents=True, exist_ok=True)
 PLOT_DIR.mkdir(parents=True, exist_ok=True)
 
 tips = sns.load_dataset("tips")
