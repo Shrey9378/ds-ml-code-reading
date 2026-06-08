@@ -58,4 +58,39 @@ Within individual party-size groups, male and female customers tend to have simi
 This indicates that party size acts as a confounding variable and explains much of the observed difference between sexes.
 
 
+Q1 · pipeline.data-leakage
+
+Q: Cell [4] computes mu and sigma from X_train only. What would happen if you used the full X instead? Would the output numbers change noticeably? Would the test score be trustworthy?
+
+
+Using the full dataset X means the test data would influence the standardization parameters (mu and sigma).
+This is called data leakage because information from the test set leaks into the training pipeline.
+The values of mu and sigma would be slightly different because they would include both train and test samples.
+The model coefficients and test metrics might change slightly, especially on small datasets.
+The test score would no longer be fully trustworthy because the test set has indirectly influenced model training.
+
+Q2 · transform.trace-pred
+
+Q: Cell [4]: X_train_b = add_bias(X_train_s). What is the shape of X_train_b? Why 2 columns when total_bill is a single number?
+
+
+X_train has shape (195,1) because there are 195 training samples and one feature (total_bill).
+Standardization does not change the shape, so X_train_s is also (195,1).
+add_bias() adds a column of ones for the intercept term.
+Therefore:
+X_train_b.shape = (195, 2)
+
+The two columns are:
+
+[1, standardized_total_bill]
+
+Column 1 = bias/intercept term
+
+Column 2 = feature value
+
+Without the bias column, the model could only fit lines passing through the origin.
+
+
+
+
 
