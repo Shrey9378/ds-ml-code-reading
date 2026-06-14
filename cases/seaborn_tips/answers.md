@@ -2,60 +2,57 @@
 
 ## Q1 · business.objective-alignment
 
-The OLS slope is approximately 0.105, which means that for every $1 increase in the total bill, the expected tip increases by about $0.105. This corresponds to a typical tip rate of roughly 10.5%.
+The regression slope is approximately 0.105, meaning that for every 1 unit increase in total bill, the tip increases by about 0.105 units. This implies that customers typically tip around 10–11% of the bill value on average.
 
-The script then creates `tip_pct = tip / total_bill × 100` because raw tip amounts are strongly influenced by bill size. A customer who spends more will usually leave a larger tip even if they tip at the same percentage rate. Using `tip_pct` normalizes for bill size and allows fair comparison of tipping behavior across customers.
-
+The script engineers tip_pct because raw tip values are strongly dependent on bill size. Using tip alone mixes generosity with spending level. tip_pct normalizes the data and allows analysis of tipping behavior independent of bill amount, making comparisons across groups more meaningful.
 
 ## Q2 · business.decision-readiness
 
-From the box plots, the predictor with the smallest difference in median tip percentage appears to be sex (male vs female). The medians are very similar and the distributions overlap heavily.
+From the summary statistics, sex shows the least difference in median tip_pct:
 
-A small median difference does not automatically mean that the variable should be excluded from a model. A predictor may still contribute useful information through interactions with other variables, nonlinear effects, or by improving overall predictive accuracy when combined with other features.
+Male: 15.35%
+Female: 15.56%
 
+The difference is very small compared to other variables.
 
+A small median difference does not mean the predictor should be excluded. It only indicates weak univariate separation. The variable may still be important in interaction effects (e.g., sex × smoker) or in combination with other features in a multivariate model.
 
 ## Q3 · eda.plot-assumption
 
-The strip plots show the actual observations, while the box plots only summarize the distribution using quartiles, median, and outliers.
+Strip plots are useful because they show individual data points, while box plots only show summary statistics (median, quartiles, and outliers). Strip plots reveal the actual distribution, clustering, and overlap of values within each category.
 
-The strip plots reveal:
+This is important because two groups can have similar medians but very different internal distributions, which box plots alone cannot show.
 
-* The number of observations in each group.
-* Clusters and gaps in the data.
-* The spread of individual points.
-* Whether apparent differences are driven by only a few observations.
+Yes, the visual layout could be improved by:
 
-Without the strip plots, two groups could have similar box plots while having very different underlying point distributions.
-
-For visual improvement, I would slightly reduce point opacity, increase spacing between subplots, and possibly rotate category labels if needed. This would improve readability without changing the information shown.
-
-
+adding jitter to reduce overlap
+reducing marker size and increasing transparency
+or combining violin plots with strip overlays for better density understanding. 
 
 ## Q4 · eda.confounding
 
-From the Q2 box plots, some days appear to have slightly higher tip percentages than others, particularly weekend days.
+From the results:
 
-Cell [5] shows that total bill size also varies across days. Therefore, the observed day effect could be partly explained by differences in spending behavior. If customers spend more on certain days, the apparent day effect may actually be driven by bill size rather than the day itself. This is an example of potential confounding.
+Highest average total_bill: Sunday (19.63)
+Next: Saturday (18.24)
 
+Since higher bills often lead to higher absolute tips and may influence tip_pct behavior, the observed day differences in tipping could be partly explained by bill size differences across days.
+
+Therefore, bill size acts as a potential confounding variable, meaning the “day effect” on tipping may not be purely due to day itself but due to differences in spending patterns on those days.
 
 ## Q5 · eda.confounding
 
-If the rows in the smoker × sex heatmap were not monotone across columns, it would indicate an interaction effect. In other words, the effect of smoking status would depend on sex, or the effect of sex would depend on smoking status.
+If rows in the smoker × sex heatmap were not monotonic or showed inconsistent patterns across columns, it would indicate an interaction effect. This means the effect of smoking status on tip_pct depends on sex (or vice versa), rather than being independent.
 
-For example, if smoking increased tip percentage for males but decreased it for females, the trends would not be parallel and an interaction would be present.
+In the actual heatmap:
 
-The actual heatmap shows only small differences between groups, so any interaction appears weak rather than strong.
+Smokers: Male = 15.28, Female = 18.22
+Non-smokers: Male = 16.07, Female = 15.69
 
-
+This shows a mild interaction effect, as the difference between sexes changes depending on smoker status.
 
 ## Q6 · eda.confounding
 
-The scatter plot and size-specific box plots suggest that the difference in tip percentage between males and females becomes much smaller when party size is held constant.
+The results show that the sex difference in tip_pct changes across party sizes, but there is no consistent or strong gap within each size category.
 
-Within individual party-size groups, male and female customers tend to have similar tip percentages. Therefore, the apparent sex effect largely disappears after controlling for party size.
-
-This indicates that party size acts as a confounding variable and explains much of the observed difference between sexes.
-
-
-
+This means that the apparent sex difference in tipping is largely reduced or disappears once party size is controlled for. Therefore, the observed overall difference is likely due to confounding by party size, rather than a direct effect of sex on tipping behavior.

@@ -19,9 +19,14 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-PLOT_DIR = Path.cwd() / "plots"
+
+BASE_DIR = Path.cwd()   # current execution folder (SAFE in VS Code)
+PLOT_DIR = BASE_DIR / "cases" / "seaborn_tips" / "plots"
+
 PLOT_DIR.mkdir(parents=True, exist_ok=True)
+PLOT_DIR = Path(__file__).resolve().parent / "plots"
 PLOT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 tips = sns.load_dataset("tips")
 tips["tip_pct"] = tips["tip"] / tips["total_bill"] * 100
