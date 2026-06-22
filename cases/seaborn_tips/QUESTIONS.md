@@ -76,14 +76,14 @@
 - Cell [8] produces a convergence plot with a red dashed horizontal line. What does that line represent?
 - Here, we use only training data. What's missing?
 
-**Q7** · `extension.alternatives`
+**Q7** · `e xtension.alternatives`
 
 - `tips_02_single_feature.py` trains on a single feature (`total_bill`). What would you need to change to train on two features instead?
 - Would the gradient descent loop change? What about the OLS solution?
 
 ---
 
-## Questions `tips_03_all_features.py`
+##Questions `tips_03_all_features.py`
 
 **Script topics** · Structural Cleaning and Encoding · Scaling and Imputation · Data Splits · Feature Engineering
 

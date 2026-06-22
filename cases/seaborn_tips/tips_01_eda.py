@@ -122,6 +122,7 @@ print(tips.groupby("smoker")["tip_pct"].describe().round(2))
 print(tips.groupby("day")["tip_pct"].describe().round(2))
 print(tips.groupby("time")["tip_pct"].describe().round(2))
 
+
 # %%
 """ [5] Bill size by day and time
 If day or time affects tip_pct (seen in Q2), one explanation is that people
